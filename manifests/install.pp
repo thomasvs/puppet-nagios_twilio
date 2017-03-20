@@ -29,7 +29,11 @@ class nagios_twilio::install {
 
   case $::operatingsystem {
     /^(RedHat|CentOS)$/: {
-      package { 'perl-libwww-perl': }
+      if $::operatingsystemmajrelease >= 7 {
+        package { 'perl-LWP-Protocol-https': }
+      } else {
+        package { 'perl-libwww-perl': }
+      }
     }
     'Fedora': {
       package { 'perl-LWP-Protocol-https': }
